@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <style>
+    body{
+        background-image:url(https://th.bing.com/th/id/R.b2d780a9fabaa1e21c8e80fc643cd714?rik=1j9%2bxdsYHRuZ2Q&pid=ImgRaw&r=0);
+        text-align: center;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-weight:600;
+        color:white;
+        font-size: 20px;
+    }
+    h1{
+        color:goldenrod;
+        
+    }
+    button{
+        background-color:goldenrod;
+        font-size:18px;
+        padding:8px 40px;
+        border:none;
+        color:#016f32;
+        font-weight: bold;    
+    }
+    </style>
+</head>
+<body>
+    <h1>BlackJack</h1>
+    <p id="message">want to play a round</p>
+    <p id="cards">Cards:</p>
+    <p id="sum">Sum:</p>
+    <button onclick="start()">START GAME</button>
+    <button onclick="newC()">NEW CARD</button>
+    <script>
+        
+let cards = [];
+let sum=0;
+let hasBlack=false;
+let isAlive = false;
+let message;
+let messageEl = document.getElementById("message");
+
+
+
+function start(){ 
+    isAlive=true;
+    let fistCard=getRandomCard() ;
+    let secondCard=getRandomCard();
+    cards = [fistCard,secondCard];
+     render();}
+
+function render(){
+   
+    document.querySelector("#cards").textContent="Cards: ";
+    
+    for(let x=0;x<cards.length ;x++){
+        document.querySelector("#cards").textContent+=cards[x]+ "  "  ;
+    }
+    for(let x=0;x<cards.length ;x++){
+        sum+=cards[x];
+    }
+    document.getElementById("sum").textContent=sum;
+    if(sum<=20){
+        message=" want a new card?"
+    }
+    else if(sum==21){
+        message="you win!"
+        hasBlack=true;
+    }
+    else {
+        message="lost"
+        isAlive=false;
+    }
+    messageEl.textContent = message;
+    
+}
+
+function newC(){
+    ;
+    
+    if(isAlive===true && hasBlack===false){
+       let card = getRandomCard();
+       cards.push(card);
+       render();}
+    else
+     alert("refresht page for a new game");
+     
+    
+}
+function getRandomCard(){
+    let x = Math.floor(Math.random()*13)+1;
+    if(x===1){return 11}
+    else if(x>10)
+    return 10
+    else
+    return x;
+}
+
+ 
+
+    </script>
+</body>
+</html>
